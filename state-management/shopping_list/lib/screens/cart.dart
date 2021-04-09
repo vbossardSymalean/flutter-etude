@@ -9,13 +9,13 @@ class MyCart extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            'Cart',
+            'Ma liste',
             style: Theme.of(context).textTheme.headline1,
           ),
-          backgroundColor: Colors.white,
+          //backgroundColor: Colors.white,
         ),
         body: Container(
-            color: Colors.yellow,
+            //color: Colors.yellow,
             child: Column(
               children: [
                 Expanded(
@@ -34,6 +34,7 @@ class _CardList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var itemNamedStyle = Theme.of(context).textTheme.headline6;
+    // Récupération du Provider CartModel
     var cart = context.watch<CartModel>();
 
     return ListView.builder(
@@ -54,4 +55,27 @@ class _CardList extends StatelessWidget {
 }
 
 // REST A FINIR LE _CARTTOTAL
-
+class _CartTotal extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    var hugeStyle =
+        Theme.of(context).textTheme.headline1!.copyWith(fontSize: 48);
+    return SizedBox(
+        height: 200,
+        child: Center(
+            child: Row(mainAxisAlignment: MainAxisAlignment.center, 
+            children: [
+              Consumer<CartModel>(
+                  builder: (context, cart, child) =>
+                      Text('\$${cart.totalPrice}', style: hugeStyle)),
+              SizedBox(width: 24),
+              TextButton(
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text('Vous ne pouvez pas encore acheter')));
+                  },
+                  style: TextButton.styleFrom(primary: Colors.white),
+                  child: Text('BUY'))
+            ])));
+  }
+}

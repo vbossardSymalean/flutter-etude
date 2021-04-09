@@ -11,7 +11,7 @@ class MyLogin extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Welcome',
+                      'Ma liste de course',
                       style: Theme.of(context).textTheme.headline1,
                     ),
                     TextFormField(
@@ -29,7 +29,7 @@ class MyLogin extends StatelessWidget {
                           Navigator.pushReplacementNamed(context, '/catalog');
                         },
                         child: Text('SE CONNECTER'),
-                        style: ElevatedButton.styleFrom(primary: Colors.yellow))
+                        style: ElevatedButton.styleFrom(primary: Theme.of(context).floatingActionButtonTheme.backgroundColor))
                   ],
                 ))));
   }
