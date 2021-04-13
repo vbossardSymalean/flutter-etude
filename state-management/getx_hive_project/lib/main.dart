@@ -19,6 +19,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    // Instantiate your class using Get.put() to make it available for all "child" routes there.
+    // Instead of instantiating your class within the class you are using,
+    // you are instantiating it within the Get instance, which will make it
+    // available throughout your App. So you can use your controller (or class Bloc) normally
     Get.put(AppController());
     // Initilisation de l'appli avec GetX => pour pouvoir utiliser
     // toutes les fonctionnalités fournis

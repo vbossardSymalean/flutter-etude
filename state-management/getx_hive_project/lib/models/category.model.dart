@@ -7,15 +7,15 @@ class CategoryModel {
     this.color = color;
   }
 
-  RxString _key = RxString('');
+  RxString _key = ''.obs;
   set key(String value) => _key.value = value;
   String get key => _key.value;
 
-  RxString _name = RxString('');
+  RxString _name = ''.obs;
   set name(String value) => _name.value = value;
   String get name => _name.value;
 
-  RxString _color = RxString('');
+  RxString _color = ''.obs;
   set color(String value) => _color.value = value;
   String get color => _color.value;
 }
