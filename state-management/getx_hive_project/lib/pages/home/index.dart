@@ -1,51 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_hive_project/appWidgets/appbar_action.dart';
 import 'package:getx_hive_project/pages/home/controller.dart';
-import 'package:getx_hive_project/shared/widgets/appBar/mainAppBar.dart';
+import 'package:getx_hive_project/pages/home/widgets/list_categories.dart';
+import 'package:getx_hive_project/pages/home/widgets/list_products.dart';
+import 'package:getx_hive_project/appWidgets/custom_appbar.dart';
 
 class Home extends StatelessWidget {
   final HomeController controller = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
-    //var listTest = controller.testListes;
-
-    return Scaffold(
-      appBar: MainAppBar(
-        title : Text("Bonjour"),
-        actions: [
-          IconButton(
-              icon: Icon(Icons.plus_one_outlined, color: Colors.white,), 
-              onPressed:() => controller.addElement()
-            ),],
-      ),
-
-      body: Center(
-        child: Obx(() =>
-          ListView.builder(
-            padding: EdgeInsets.all(8),
-            itemCount: controller.testListesFromModel.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Container(height: 50, child: Text(controller.testListesFromModel[index].toString()));
-            },
-          )
-          ),
-      ),
-      // body: Container(
-      //         child: Row(
-      //           children: <Widget>[
-      //             // Obx(
-      //             //   () => Text('${controller.title.value} ${controller.counter.value}'),
-      //             // ),
-      //             // Obx(() => ElevatedButton(
-      //             //     onPressed: () => controller.reset(),
-      //             //     child: Text('Reset Counter'))),
-      //           ],
-      //         )
-      //     ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => {controller.increment()},
-      ),
-    );
+    return GetBuilder<HomeController>(
+        init: HomeController(),
+        builder: (controller) {
+          return Scaffold(
+              // A changer
+              backgroundColor: Colors.white,
+              appBar: CustomAppBar(
+                "GetX Concepts",
+                actions: [
+                  Obx(() => CustomAppBarAction(
+                        () => Get.toNamed("/cart"),
+                        Icons.shopping_cart,
+                        // Feather.shopping_cart,
+                        quantity: controller.cartQuantity,
+                      ))
+                ],
+              ),
+              body: CustomScrollView(slivers: <Widget>[
+                SliverToBoxAdapter(
+                  child: ListCategories(),
+                ),
+                SliverPadding(
+                  padding: EdgeInsets.only(
+                    left: 25,
+                    right: 25,
+                    bottom: 25,
+                  ),
+                  sliver: HomeList(),
+                )
+              ]));
+        });
   }
 }

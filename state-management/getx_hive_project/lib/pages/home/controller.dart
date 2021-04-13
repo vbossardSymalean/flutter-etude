@@ -1,39 +1,54 @@
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
-import 'package:getx_hive_project/pages/home/testModel.dart';
+import 'package:getx_hive_project/controller.dart';
+import 'package:getx_hive_project/models/category.model.dart';
+import 'package:getx_hive_project/models/product.model.dart';
+import 'package:getx_hive_project/shared/utils/json.dart';
 
 class HomeController extends GetxController {
+  AppController appController = Get.find();
+  RxList<CategoryModel> categories = RxList<CategoryModel>([]);
+  RxList<ProductModel> products = RxList<ProductModel>([]);
+  Rx<CategoryModel> _selectedCategory = Rx<CategoryModel>(CategoryModel());
+  CategoryModel get selectedCategory => _selectedCategory.value;
+
+  int get cartQuantity {
+    return appController.cartItems.length;
+  }
+
   HomeController() {
-    this.testModel = TestModel();
+    loadCategories();
   }
 
-  TestModel testModel;
-
-  RxInt counter = 0.obs;
-
-  RxString title = "Test du titre".obs;
-
-  RxList<String> testListes = [
-    "Salut",
-    "Hallo",
-    "Bonjour",
-    "Hello",
-  ].obs;
-
-  RxList<TestModel> testListesFromModel = RxList<TestModel>();
-
-  void increment() {
-    print("Bojour");
-    counter.value++;
+  loadCategories() async {
+    //Load categories
+    List<dynamic> dataCategories = await loadJson(
+      "assets/data/categories.json",
+    );
+    categories.addAll(dataCategories
+        .map<CategoryModel>((category) => CategoryModel(
+              key: category["key"],
+              name: category["name"],
+              color: category["color"],
+            ))
+        .toList());
+    selectCategory(categories.first);
   }
 
-  void reset() {
-    if (counter.value != 0) {
-      counter.value = 0;
-    }
-  }
-
-  void addElement() {
-    testListes.add("New Value");
+  selectCategory(CategoryModel category) async {
+    _selectedCategory.value = category;
+    List<dynamic> dataProducts = await loadJson(
+      "assets/data/products.json",
+    );
+    products.value = dataProducts
+        .where((item) => item["category"] == category.key)
+        .map<ProductModel>((product) => ProductModel(
+              id: product["id"],
+              name: product["name"],
+              category: product["category"],
+              price: product["price"],
+              image: product["image"],
+            ))
+        .toList();
   }
 }

@@ -5,7 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
 const String dataBoxName = "data";
-
+// USE this https://github.com/andreciornavei/flutter-getx-concept
 void main() async {
   // Hive Initilization
   // WidgetsFlutterBinding.ensureInitialized();
