@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_hive_project/controller.dart';
 import 'package:getx_hive_project/routes/routes.dart';
-import 'package:hive/hive.dart';
-import 'package:path_provider/path_provider.dart';
 
 const String dataBoxName = "data";
 // USE this https://github.com/andreciornavei/flutter-getx-concept

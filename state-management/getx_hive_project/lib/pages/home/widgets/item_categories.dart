@@ -1,6 +1,3 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_hive_project/models/category.model.dart';
@@ -35,7 +32,7 @@ class ItemCategories extends StatelessWidget {
               child: Container(
                 margin: EdgeInsets.only(top: 3),
                 width: 50,
-                height: 3,
+                height: 2,
                 decoration: BoxDecoration(
                   color: AppColors.hex(category.color),
                   borderRadius: BorderRadius.circular(3),

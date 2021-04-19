@@ -1,6 +1,3 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:getx_hive_project/shared/utils/colors.dart';
 
